@@ -1,0 +1,92 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<body>
+<div style="padding: 15px;width: 1000px;margin: 0 auto">
+    <form class="layui-form" action="" th:object="${zhichuguanli}">
+        <input name="id" type="hidden" th:field="*{id}"/>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">支付类型</label>
+                <div class="layui-input-inline">
+                    <select name="type" lay-verify="required" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="10" th:field="*{type}">交行信用卡</option>
+                        <option value="11" th:field="*{type}">招行信用卡</option>
+                        <option value="20" th:field="*{type}">支付宝花呗</option>
+                        <option value="21" th:field="*{type}">支付宝借呗</option>
+                        <option value="30" th:field="*{type}">商业贷款</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">支出年份</label>
+                <div class="layui-input-inline">
+                    <select name="year" lay-verify="required" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="2016" th:field="*{year}">2016年</option>
+                        <option value="2017" th:field="*{year}">2017年</option>
+                        <option value="2018" th:field="*{year}">2018年</option>
+                        <option value="2019" th:field="*{year}">2019年</option>
+                        <option value="2020" th:field="*{year}">2020年</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">支出年份</label>
+                <div class="layui-input-inline">
+                    <select name="month" lay-verify="required" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="01" th:field="*{month}">01月</option>
+                        <option value="02" th:field="*{month}">02月</option>
+                        <option value="03" th:field="*{month}">03月</option>
+                        <option value="04" th:field="*{month}">04月</option>
+                        <option value="05" th:field="*{month}">05月</option>
+                        <option value="06" th:field="*{month}">06月</option>
+                        <option value="07" th:field="*{month}">07月</option>
+                        <option value="08" th:field="*{month}">08月</option>
+                        <option value="09" th:field="*{month}">09月</option>
+                        <option value="10" th:field="*{month}">10月</option>
+                        <option value="11" th:field="*{month}">11月</option>
+                        <option value="12" th:field="*{month}">12月</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">支出金额</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="money" th:field="*{money}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注信息</label>
+            <div class="layui-input-block">
+                <textarea name="remark" th:field="*{remark}" placeholder="备注信息" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="edit">修改保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include :: footer"></div>
+<script>
+    var sysUrl = '/neptune/zhichuguanli/';
+    layui.use(['form', 'neptune'], function () {
+        var form = layui.form, neptune = layui.neptune;
+        form.on('submit(edit)', function (data) {
+            neptune.save(sysUrl, 'edit', data.field);
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

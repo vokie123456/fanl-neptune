@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<body>
+
+<div class="container">
+    <div class="logo"><a th:href="@{/index}">[[${name}]]</a></div>
+    <div class="left_open">
+        <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+    </div>
+    <ul class="layui-nav left fast-add" lay-filter="">
+        <li class="layui-nav-item to-index">[[${user}]]</li>
+    </ul>
+</div>
+
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a _href="/neptune/zhichuguanli">
+                    <i class="iconfont">&#xe6a7;</i>
+                    <cite>支出管理</cite>
+                </a>
+            </li>
+            <li>
+                <a _href="/neptune/zhichutongji">
+                    <i class="iconfont">&#xe6a7;</i>
+                    <cite>支出统计</cite>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='/neptune/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-bg"></div>
+
+<div class="footer">
+    <div style="text-align: center;">Copyright ©2019 FANLING All Rights Reserved | 版本：[[${version}]]</div>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/xadmin.js}"></script>
+<script>
+    $(function () {
+        //判断是不是ie，提示不建议ie
+        if (!!window.ActiveXObject || "ActiveXObject" in window) {
+            alert("为了得到更好的体验，建议使用Chrome浏览器");
+        }
+    });
+</script>
+</body>
+</html>

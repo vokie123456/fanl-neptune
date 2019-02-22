@@ -1,0 +1,19 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<body>
+<div class="x-body">
+    <blockquote class="layui-elem-quote">欢迎使用个人财务支出月度统计V1,上次更新：20190214</blockquote>
+
+    <fieldset class="layui-elem-field">
+        <legend>系统通知</legend>
+        <div class="layui-field-box">
+            本系统用于统计个人支出情况，数据来源于交行信用卡，招行信用卡，支付宝花呗、借呗，正常消费均通过此来完成。
+        </div>
+    </fieldset>
+
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+</body>
+</html>

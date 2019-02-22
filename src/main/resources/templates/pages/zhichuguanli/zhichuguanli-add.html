@@ -1,0 +1,92 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<body>
+<div style="padding: 15px;width: 1000px;margin: 0 auto">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">支付类型</label>
+                <div class="layui-input-inline">
+                    <select name="type" lay-verify="required" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="10">交行信用卡</option>
+                        <option value="11">招行信用卡</option>
+                        <option value="20">支付宝花呗</option>
+                        <option value="21">支付宝借呗</option>
+                        <option value="30">商业贷款</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">支出年份</label>
+                <div class="layui-input-inline">
+                    <select name="year" lay-verify="required" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="2016">2016年</option>
+                        <option value="2017">2017年</option>
+                        <option value="2018">2018年</option>
+                        <option value="2019">2019年</option>
+                        <option value="2020">2020年</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">支出年份</label>
+                <div class="layui-input-inline">
+                    <select name="month" lay-verify="required" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="01">01月</option>
+                        <option value="02">02月</option>
+                        <option value="03">03月</option>
+                        <option value="04">04月</option>
+                        <option value="05">05月</option>
+                        <option value="06">06月</option>
+                        <option value="07">07月</option>
+                        <option value="08">08月</option>
+                        <option value="09">09月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">支出金额</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="money" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注信息</label>
+            <div class="layui-input-block">
+                <textarea name="remark" placeholder="备注信息" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include :: footer"></div>
+<script>
+    var sysUrl = '/neptune/zhichuguanli/';
+    layui.use(['form', 'neptune'], function () {
+        var form = layui.form, neptune = layui.neptune;
+        form.on('submit(add)', function (data) {
+            neptune.save(sysUrl, 'add', data.field);
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+neptune:
+  name: 个人财务支出月度统计
+  version: 1.0.0214
+server:
+  port: 9008
+  servlet:
+    context-path: /neptune
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 800
+    min-spare-threads: 30
+logging:
+  level:
+    com.fanling.venus: warn
+    org.springframework: warn
+    org.spring.springboot.dao: warn
+spring:
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    cache: false
+  jackson:
+    time-zone: GMT+8
+    date-format: 'yyyy-MM-dd HH:mm:ss'
+  datasource:
+    url: jdbc:mysql://192.168.202.164:3306/f_neptune?characterEncoding=utf8&useSSL=false
+    username: root
+    password: Gepoint
+mybatis:
+  typeAliasesPackage: com.fanling.neptune.entity
+  mapperLocations: classpath*:mybatis/*Mapper.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

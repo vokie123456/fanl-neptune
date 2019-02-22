@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.neptune.mapper.ZhiChuGuanLiMapper">
+
+    <resultMap id="ZhiChuGuanLiResult" type="ZhiChuGuanLi">
+        <id property="id" column="id"/>
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="type" column="type"/>
+        <result property="money" column="money"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectZhiChuGuanLiVo">
+        select id,year,month,type,money,remark,create_time,update_time
+        from t_zhichuguanli
+    </sql>
+
+    <select id="selectZhiChuGuanLiList" parameterType="ZhiChuGuanLi" resultMap="ZhiChuGuanLiResult">
+        <include refid="selectZhiChuGuanLiVo"/>
+        where 1=1
+        <if test="type != null and type != ''">
+            AND type = #{type}
+        </if>
+        <if test="year != null and year != ''">
+            AND year = #{year}
+        </if>
+        <if test="month != null and month != ''">
+            AND month = #{month}
+        </if>
+        order by year desc,month desc
+    </select>
+
+    <select id="selectZhiChuGuanLiById" parameterType="Long" resultMap="ZhiChuGuanLiResult">
+        <include refid="selectZhiChuGuanLiVo"/>
+        where 1=1 AND id = #{id}
+    </select>
+
+    <select id="selectZhiChuGuanLiSumByType" parameterType="ZhiChuGuanLi" resultType="String">
+        select cast(ifnull(sum(money),'0.00') AS DECIMAL (19, 2)) as money  from t_zhichuguanli
+        where 1=1 AND type = #{type}
+    </select>
+
+    <select id="selectZhiChuGuanLiSumByTypeAndYear" parameterType="ZhiChuGuanLi" resultType="String">
+        select cast(ifnull(sum(money),'0.00') AS DECIMAL (19, 2)) as money  from t_zhichuguanli
+        where 1=1 AND type = #{type} AND year = #{year}
+    </select>
+
+    <select id="selectZhiChuGuanLiSumByTypeAndYearAndMonth" parameterType="ZhiChuGuanLi" resultType="String">
+        select cast(ifnull(sum(money),'0.00') AS DECIMAL (19, 2)) as money  from t_zhichuguanli
+        where 1=1 AND type = #{type} AND year = #{year} AND month = #{month}
+    </select>
+
+    <delete id="deleteZhiChuGuanLiById" parameterType="Long">
+        delete from t_zhichuguanli where id=#{id}
+    </delete>
+
+    <insert id="insertZhiChuGuanLi" parameterType="ZhiChuGuanLi">
+        insert into t_zhichuguanli(
+        <if test="year != null and year != '  '">year,</if>
+        <if test="month != null and month != ''">month,</if>
+        <if test="type != null and type != ''">type,</if>
+        <if test="money != null and money != ''">money,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        create_time
+        )values(
+        <if test="year != null and year != ''">#{year},</if>
+        <if test="month != null and month != ''">#{month},</if>
+        <if test="type != null and type != ''">#{type},</if>
+        <if test="money != null and money != ''">#{money},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="updateZhiChuGuanLi" parameterType="ZhiChuGuanLi">
+        update t_zhichuguanli
+        <set>
+            <if test="year != null and year != ''">year = #{year},</if>
+            <if test="month != null and month != ''">month = #{month},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="money != null and money != ''">money = #{money},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<body>
+<!--新增按钮-->
+<div style="padding: 10px;">
+    <button id="add" class="layui-btn layui-btn-sm"><i
+            class="layui-icon"></i>添加
+    </button>
+</div>
+<!--搜索-->
+<div>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">支付类型</label>
+                <div class="layui-input-inline">
+                    <select id="type" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="10">交行信用卡</option>
+                        <option value="11">招行信用卡</option>
+                        <option value="20">支付宝花呗</option>
+                        <option value="21">支付宝借呗</option>
+                        <option value="30">商业贷款</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">年份</label>
+                <div class="layui-input-inline">
+                    <select id="year" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="2016">2016年</option>
+                        <option value="2017">2017年</option>
+                        <option value="2018">2018年</option>
+                        <option value="2019">2019年</option>
+                        <option value="2020">2020年</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="layui-inline">
+                <label class="layui-form-label">月份</label>
+                <div class="layui-input-inline">
+                    <select id="month" lay-search="">
+                        <option value="">请选择</option>
+                        <option value="01">01月</option>
+                        <option value="02">02月</option>
+                        <option value="03">03月</option>
+                        <option value="04">04月</option>
+                        <option value="05">05月</option>
+                        <option value="06">06月</option>
+                        <option value="07">07月</option>
+                        <option value="08">08月</option>
+                        <option value="09">09月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm"><i class="layui-icon"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--表格-->
+<table id="zhichuguanliList" class="layui-hide" lay-filter="zhichuguanliList"></table>
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<div th:include="include :: footer"></div>
+<script>
+    var sysUrl = '/neptune/zhichuguanli';
+    layui.use(['table', 'neptune', 'jquery'], function () {
+        var table = layui.table, neptune = layui.neptune, $ = layui.jquery;
+        table.render({
+            id: 'zhichuguanliList',
+            elem: '#zhichuguanliList',
+            method: 'post',
+            height: 'full-200',
+            toolbar: '#toolbarTable',
+            defaultToolbar: ['print', 'exports'],
+            cellMinWidth: 160,
+            url: sysUrl + '/list',
+            cols: [
+                [
+                    {field: 'num', width: 50, title: '序号', type: 'numbers'},
+                    {field: 'id', width: 50, title: 'id', hide: true},
+                    {
+                        field: 'type', width: 200, title: '支付类型', templet: function (d) {
+                            if (d.type === "10") {
+                                return "交行信用卡";
+                            } else if (d.type === "11") {
+                                return "招行信用卡";
+                            }
+                            else if (d.type === "20") {
+                                return "支付宝花呗";
+                            }
+                            else if (d.type === "21") {
+                                return "支付宝借呗";
+                            }
+                            else if (d.type === "30") {
+                                return "商业贷款";
+                            }
+                        }
+                    },
+                    {field: 'year', width: 180, title: '支出年份'},
+                    {field: 'month', width: 140, title: '账单月份'},
+                    {field: 'money', width: 180, title: '账单总额'},
+                    {field: 'remark', width: 250, title: '备注信息'},
+                    {field: 'createTime', title: '创建日期'},
+                    {fixed: 'right', title: '操作', width: 150, toolbar: "#toolbar"}
+                ]
+            ]
+            , page: true
+        });
+        //监听行工具事件
+        table.on('tool(zhichuguanliList)', function (obj) {
+            neptune.update(sysUrl, obj, 'zhichuguanli');
+        });
+        //搜索
+        $('.layui-form .layui-btn').on('click', function () {
+            table.reload('zhichuguanliList', {
+                where: {
+                    type: $("#type").val(),
+                    year: $("#year").val(),
+                    month: $("#month").val()
+                }
+            });
+            return false;
+        });
+        $('#add').on('click', function () {
+            neptune.openTopWindow('新增数据', '/neptune/zhichuguanli/add')
+        })
+    });
+</script>
+</body>
+</html>
