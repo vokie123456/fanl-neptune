@@ -1,6 +1,6 @@
 neptune:
   name: 个人财务支出月度统计
-  version: 1.0.0214
+  version: 1.0.0223
 server:
   port: 9008
   servlet:
@@ -23,7 +23,7 @@ spring:
     time-zone: GMT+8
     date-format: 'yyyy-MM-dd HH:mm:ss'
   datasource:
-    url: jdbc:mysql://192.168.202.164:3306/f_neptune?characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://192.168.1.105:3306/f_neptune?characterEncoding=utf8&useSSL=false
     username: root
     password: Gepoint
 mybatis:

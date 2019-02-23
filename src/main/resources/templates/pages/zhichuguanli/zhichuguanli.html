@@ -86,14 +86,14 @@
             height: 'full-200',
             toolbar: '#toolbarTable',
             defaultToolbar: ['print', 'exports'],
-            cellMinWidth: 160,
+            cellMinWidth: 100,
             url: sysUrl + '/list',
             cols: [
                 [
                     {field: 'num', width: 50, title: '序号', type: 'numbers'},
                     {field: 'id', width: 50, title: 'id', hide: true},
                     {
-                        field: 'type', width: 200, title: '支付类型', templet: function (d) {
+                        field: 'type', width: 180, title: '支付类型', templet: function (d) {
                             if (d.type === "10") {
                                 return "交行信用卡";
                             } else if (d.type === "11") {
@@ -110,9 +110,9 @@
                             }
                         }
                     },
-                    {field: 'year', width: 180, title: '支出年份'},
-                    {field: 'month', width: 140, title: '账单月份'},
-                    {field: 'money', width: 180, title: '账单总额'},
+                    {field: 'year', width: 120, title: '支出年份'},
+                    {field: 'month', width: 100, title: '账单月份'},
+                    {field: 'money', width: 150, title: '账单总额'},
                     {field: 'remark', width: 250, title: '备注信息'},
                     {field: 'createTime', title: '创建日期'},
                     {fixed: 'right', title: '操作', width: 150, toolbar: "#toolbar"}

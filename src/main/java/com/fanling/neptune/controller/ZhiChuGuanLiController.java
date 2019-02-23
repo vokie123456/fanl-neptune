@@ -19,7 +19,7 @@ public class ZhiChuGuanLiController extends BaseController {
     @Autowired
     private ZhiChuGuanLiService zhiChuGuanLiService;
 
-    @GetMapping
+    @GetMapping()
     public String zhichuguanli() {
         return prefix + "zhichuguanli";
     }

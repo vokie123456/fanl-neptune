@@ -21,9 +21,14 @@ public class ZhiChuTongJiController extends BaseController {
     @Autowired
     private ZhiChuGuanLiService zhiChuGuanLiService;
 
-    @GetMapping
-    public String zhichutongji() {
-        return prefix + "zhichutongji";
+    @GetMapping("/1")
+    public String zhichutongji1() {
+        return prefix + "zhichutongji_1";
+    }
+
+    @GetMapping("/2")
+    public String zhichutongji2() {
+        return prefix + "zhichutongji_2";
     }
 
     @PostMapping("/typedata")
