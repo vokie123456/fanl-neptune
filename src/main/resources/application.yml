@@ -1,6 +1,6 @@
 neptune:
-  name: 个人财务支出月度统计
-  version: 1.0.0223
+  name: 财务财产统计
+  version: 2.0.0223
 server:
   port: 9008
   servlet:
@@ -23,9 +23,9 @@ spring:
     time-zone: GMT+8
     date-format: 'yyyy-MM-dd HH:mm:ss'
   datasource:
-    url: jdbc:mysql://192.168.1.105:3306/f_neptune?characterEncoding=utf8&useSSL=false
-    username: root
-    password: Gepoint
+    url: jdbc:mysql://127.0.0.1:3306/f_neptune?characterEncoding=utf8&useSSL=false
+    username: fanl
+    password: fanl@0920
 mybatis:
   typeAliasesPackage: com.fanling.neptune.entity
   mapperLocations: classpath*:mybatis/*Mapper.xml
