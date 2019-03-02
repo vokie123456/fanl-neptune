@@ -11,7 +11,7 @@ server:
     min-spare-threads: 30
 logging:
   level:
-    com.fanling.venus: warn
+    com.fanling.neptune: warn
     org.springframework: warn
     org.spring.springboot.dao: warn
 spring:

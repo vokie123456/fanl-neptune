@@ -1,0 +1,127 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<body>
+<div style="padding: 15px;width: 1000px;margin: 0 auto">
+    <form class="layui-form" action="" th:object="${mealsday}">
+        <input name="id" type="hidden" th:field="*{id}"/>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">记录日</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="myDay" th:field="*{myDay}" id="myDay" lay-verify="required|date"
+                           placeholder="yyyy-MM-dd"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">第一餐</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="breakfast" readonly th:field="*{breakfast}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">支出金额</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="bfMoney" th:field="*{bfMoney}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">第二餐</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="lunch" readonly th:field="*{lunch}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">支出金额</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="lMoney" th:field="*{lMoney}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">第三餐</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="dinner" th:field="*{dinner}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">支出金额</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="dMoney" th:field="*{dMoney}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">聚会</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="party" readonly th:field="*{party}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">支出金额</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="pMoney" th:field="*{pMoney}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">零食</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="relax" readonly th:field="*{relax}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">支出金额</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="rMoney" th:field="*{rMoney}" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注信息</label>
+            <div class="layui-input-block">
+                <textarea name="remark" placeholder="备注信息" th:field="*{remark}" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="edit">修改保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include :: footer"></div>
+<script>
+    var sysUrl = '/neptune/mealsday/';
+    layui.use(['form', 'neptune', 'laydate'], function () {
+        var form = layui.form, neptune = layui.neptune, laydate = layui.laydate;
+        laydate.render({
+            elem: '#myDay',
+            fromat:'yyyy-MM-dd 00.00.00'
+        });
+        form.on('submit(edit)', function (data) {
+            neptune.save(sysUrl, 'edit', data.field);
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

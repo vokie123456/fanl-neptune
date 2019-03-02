@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<body>
+<!--新增按钮-->
+<div style="padding: 10px;">
+    <button id="add" class="layui-btn layui-btn-sm"><i
+            class="layui-icon"></i>添加
+    </button>
+</div>
+<!--搜索-->
+<div>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">记录日</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="myDay" id="myDay" lay-verify="date" placeholder="记录日"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm"><i class="layui-icon"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--表格-->
+<table id="mealsdayList" class="layui-hide" lay-filter="mealsdayList"></table>
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<div th:include="include :: footer"></div>
+<script>
+    var sysUrl = '/neptune/mealsday';
+    layui.use(['table', 'neptune', 'jquery','laydate'], function () {
+
+        var table = layui.table, neptune = layui.neptune, $ = layui.jquery,laydate = layui.laydate;
+        laydate.render({
+            elem: '#myDay',
+            fromat:'yyyy-MM-dd 00.00.00'
+        });
+        table.render({
+            id: 'mealsdayList',
+            elem: '#mealsdayList',
+            method: 'post',
+            height: 'full-200',
+            toolbar: '#toolbarTable',
+            defaultToolbar: ['print', 'exports'],
+            cellMinWidth: 100,
+            url: sysUrl + '/list',
+            cols: [
+                [
+                    {field: 'num', width: 50, title: '序号', type: 'numbers'},
+                    {field: 'id', width: 50, title: 'id', hide: true},
+                    {field: 'myDay', width: 155, title: '记录日期',templet: function (d) {
+                            return neptune.getDateStr(d.myDay);
+                        }},
+                    {field: 'bfMoney', width: 150, title: '早餐支出（元）'},
+                    {field: 'lMoney', width: 150, title: '午餐支出（元）'},
+                    {field: 'dMoney', width: 150, title: '晚餐支出（元）'},
+                    {field: 'pMoney', width: 150, title: '聚餐支出（元）'},
+                    {field: 'rMoney', width: 150, title: '零食支出（元）'},
+                    {field: 'remark', width: 180, title: '备注'},
+                    {fixed: 'right', title: '操作', width: 150, toolbar: "#toolbar"}
+                ]
+            ]
+            , page: true
+        });
+        //监听行工具事件
+        table.on('tool(mealsdayList)', function (obj) {
+            neptune.update(sysUrl, obj, 'mealsday');
+        });
+        //搜索
+        $('.layui-form .layui-btn').on('click', function () {
+            table.reload('mealsdayList', {
+                where: {
+                    myDay: $("#myDay").val()
+                }
+            });
+            return false;
+        });
+        $('#add').on('click', function () {
+            neptune.openTopWindow('新增数据', '/neptune/mealsday/add')
+        })
+    });
+</script>
+</body>
+</html>

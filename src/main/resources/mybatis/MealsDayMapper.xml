@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.neptune.mapper.MealsDayMapper">
+
+    <resultMap id="MealsDayResult" type="MealsDay">
+        <id property="id" column="id"/>
+        <result property="breakfast" column="breakfast"/>
+        <result property="bfMoney" column="bf_money"/>
+        <result property="lunch" column="lunch"/>
+        <result property="lMoney" column="l_money"/>
+        <result property="dinner" column="dinner"/>
+        <result property="dMoney" column="d_money"/>
+        <result property="party" column="party"/>
+        <result property="pMoney" column="p_money"/>
+        <result property="relax" column="relax"/>
+        <result property="rMoney" column="r_money"/>
+        <result property="remark" column="remark"/>
+        <result property="myDay" column="my_day"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMealsDayVo">
+        select id,breakfast,bf_money,lunch,l_money,dinner,d_money,party,p_money,relax,r_money,remark,my_day,create_time,update_time
+        from t_mealsday
+    </sql>
+
+    <select id="selectMealsDayList" parameterType="MealsDay" resultMap="MealsDayResult">
+        <include refid="selectMealsDayVo"/>
+        where 1=1
+        <if test="myDay != null">
+            AND my_day = #{myDay}
+        </if>
+        order by my_day desc
+    </select>
+
+    <select id="selectMealsDayById" parameterType="Long" resultMap="MealsDayResult">
+        <include refid="selectMealsDayVo"/>
+        where 1=1 AND id = #{id}
+    </select>
+
+    <delete id="deleteMealsDayById" parameterType="Long">
+        delete from t_mealsday where id=#{id}
+    </delete>
+
+    <insert id="insertMealsDay" parameterType="MealsDay">
+        insert into t_mealsday(
+        <if test="breakfast != null and breakfast != ''">breakfast,</if>
+        <if test="bfMoney != null and bfMoney != ''">bf_money,</if>
+        <if test="lunch != null and lunch != ''">lunch,</if>
+        <if test="lMoney != null and lMoney != ''">l_money,</if>
+        <if test="dinner != null and dinner != ''">dinner,</if>
+        <if test="dMoney != null and dMoney != ''">d_money,</if>
+        <if test="party != null and party != ''">party,</if>
+        <if test="pMoney != null and pMoney != ''">p_money,</if>
+        <if test="relax != null and relax != ''">relax,</if>
+        <if test="rMoney != null and rMoney != ''">r_money,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        create_time,my_day
+        )values(
+        <if test="breakfast != null and breakfast != ''">#{breakfast},</if>
+        <if test="bfMoney != null and bfMoney != ''">#{bfMoney},</if>
+        <if test="lunch != null and lunch != ''">#{lunch},</if>
+        <if test="lMoney != null and lMoney != ''">#{lMoney},</if>
+        <if test="dinner != null and dinner != ''">#{dinner},</if>
+        <if test="dMoney != null and dMoney != ''">#{dMoney},</if>
+        <if test="party != null and party != ''">#{party},</if>
+        <if test="pMoney != null and pMoney != ''">#{pMoney},</if>
+        <if test="relax != null and relax != ''">#{relax},</if>
+        <if test="rMoney != null and rMoney != ''">#{rMoney},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        sysdate(),#{myDay}
+        )
+    </insert>
+
+    <update id="updateMealsDay" parameterType="MealsDay">
+        update t_mealsday
+        <set>
+            <if test="breakfast != null and breakfast != ''">breakfast = #{breakfast},</if>
+            <if test="bfMoney != null and bfMoney != ''">bf_money = #{bfMoney},</if>
+            <if test="lunch != null and lunch != ''">lunch = #{lunch},</if>
+            <if test="lMoney != null and lMoney != ''">l_money = #{lMoney},</if>
+            <if test="dinner != null and dinner != ''">dinner = #{dinner},</if>
+            <if test="dMoney != null and dMoney != ''">d_money = #{dMoney},</if>
+            <if test="party != null and party != ''">party = #{party},</if>
+            <if test="pMoney != null and pMoney != ''">p_money = #{pMoney},</if>
+            <if test="relax != null and relax != ''">relax = #{relax},</if>
+            <if test="rMoney != null and rMoney != ''">r_money = #{rMoney},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            update_time = sysdate(),
+            my_day=#{myDay}
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
