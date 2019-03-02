@@ -1,5 +1,5 @@
 neptune:
-  name: 财务财产统计
+  name: 个人财务统计
   version: 2.0.0223
 server:
   port: 9008
